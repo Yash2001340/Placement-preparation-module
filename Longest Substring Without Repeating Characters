@@ -1,0 +1,43 @@
+class Solution {
+public:
+    void random(int &i,int &j,string &s,unordered_map<char,int>&mp)
+    {
+        j++;
+        while(j<i)
+        {
+            mp[s[j]]--;
+            if(mp[s[j]]==1)
+            {
+                return;
+            }
+            mp.erase(s[j]);
+            j++;
+        }
+    }
+    int lengthOfLongestSubstring(string s) {
+        unordered_map<char,int>mp;
+        int i=-1;
+        int j=-1;
+        int len=0;
+        int result=0;
+        int n=s.length();
+        while(i<n-1)
+        {
+            i++;
+            mp[s[i]]+=1;
+            if(mp[s[i]]==1)
+            {
+                len=i-j;
+                if(len>result)
+                {
+                    result=len;
+                }
+            }
+            else if(mp[s[i]]==2)
+            {
+                random(i,j,s,mp);
+            }
+        }
+        return result;
+    }
+};
