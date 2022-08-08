@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n=prices.size();
+        stack<int>s;
+        s.push(prices[n-1]);
+        int result=INT_MIN;
+        for(int i=n-2;i>=0;i--)
+        {
+            if(prices[i]>s.top())
+            {
+                s.pop();
+                s.push(prices[i]);
+            }
+            else if(prices[i]<s.top())
+            {
+                int count=s.top()-prices[i];
+                result=max(count,result);
+            }
+        }
+        if(result==INT_MIN)
+        {
+            return 0;
+        }
+        else{
+            return result;
+        }
+    }
+};
